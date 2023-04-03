@@ -17,6 +17,8 @@ const Customizer = () => {
 
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
+  const [isopen, setIsopen] = useState(false);
+  
 
   const [activeEditorTab, setActiveEditorTab] = useState("");
   const [activeFilterTab, setActiveFilterTab] = useState({
@@ -131,7 +133,12 @@ const Customizer = () => {
                   <Tab 
                     key={tab.name}
                     tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
+                    handleClick={() => {
+                      setIsopen(!isopen)
+                      if(!isopen){
+                        setActiveEditorTab(tab.name)
+                      }else{setActiveEditorTab("")}
+                    }}
                   />
                 ))}
 
@@ -162,9 +169,10 @@ const Customizer = () => {
                 tab={tab}
                 isFilterTab
                 isActiveTab={activeFilterTab[tab.name]}
-                handleClick={() => handleActiveFilterTab(tab.name)}
+                handleClick={() => {handleActiveFilterTab(tab.name)}}
               />
             ))}
+            <button onClick={downloadCanvasToImage} className='px-3 py-3 border border-[#cac6c6] rounded-full'><img src={download} className="w-7 h-7" alt="download"/></button>
           </motion.div>
         </>
       )}
